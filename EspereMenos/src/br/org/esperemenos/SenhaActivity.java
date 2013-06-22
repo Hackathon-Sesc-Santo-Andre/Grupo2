@@ -9,11 +9,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxStatus;
+
 import br.org.esperemenos.ws.WebService;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,6 +28,7 @@ import android.widget.Toast;
 
 public class SenhaActivity extends Activity {
 
+	AQuery a;
 	private Spinner spn1;
 	private List<String> tipoServico = new ArrayList<String>();
 	private Map<String, Integer> modelTpFila = new HashMap<String, Integer>();
@@ -36,36 +41,39 @@ public class SenhaActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_senha);
 		
+		a = new AQuery(this);
+		
 		tipoServico.add("");
 		//tipoServico.add("Atendimento");
 		//tipoServico.add("Restaurante");
 		
-		WebService webService = new WebService();
-		JSONObject json = webService.getJSONFromUrl("http://api.androidhive.info/contacts/");
-		if(json == null){
-			Toast.makeText(SenhaActivity.this, 
-					   "erro no json", 
-					   Toast.LENGTH_LONG).show();
-		}else{
-			JSONArray tipo = null;
-			
-			try {
-			    // Getting Array of Contacts
-				tipo = json.getJSONArray("contacts");
-			     
-			    // looping through All Contacts
-			    for(int i = 0; i < tipo.length(); i++){
-			        JSONObject c = tipo.getJSONObject(i);
-			         
-			        // Storing each json item in variable
-			        tipoServico.add(c.getString("name"));
-			        //modelTpFila.put(c.getString("name"), c.getInt(""));
-			        modelTpFila.put(c.getString("name"), i);
-			         
-			    }
-			} catch (JSONException e) {
-			    e.printStackTrace();
-			}
+//		WebService webService = new WebService();
+//		JSONObject json = webService.getJSONFromUrl("http://api.androidhive.info/contacts/");
+//		if(json == null){
+//			Toast.makeText(SenhaActivity.this, 
+//					   "erro no json", 
+//					   Toast.LENGTH_LONG).show();
+//		}else{
+//			JSONArray tipo = null;
+//			
+//			try {
+//			    // Getting Array of Contacts
+//				tipo = json.getJSONArray("contacts");
+//			     
+//			    // looping through All Contacts
+//			    for(int i = 0; i < tipo.length(); i++){
+//			        JSONObject c = tipo.getJSONObject(i);
+//			         
+//			        // Storing each json item in variable
+//			        tipoServico.add(c.getString("name"));
+//			        //modelTpFila.put(c.getString("name"), c.getInt(""));
+//			        modelTpFila.put(c.getString("name"), i);
+//			         
+//			    }
+//			} catch (JSONException e) {
+//			    e.printStackTrace();
+//			}
+			getJsonTipoServico();
 	        
 			spn1 = (Spinner) findViewById(R.id.spnTipoServico);
 			ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tipoServico);
@@ -90,7 +98,7 @@ public class SenhaActivity extends Activity {
 	 
 				}
 			});
-		}
+		//}
 				
 		Button bntAdm = (Button)findViewById(R.id.bntAdm);
 		bntAdm.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +113,26 @@ public class SenhaActivity extends Activity {
 		
 		
 		
+	}
+	
+	public void getJsonTipoServico(){
+		String url = "http://api.androidhive.info/contacts/";
+		a.ajax(url, JSONObject.class, this, "retornoJsonTipoServico");
+		
+	}
+	public void retornoJsonTipoServico(String url, JSONObject json, AjaxStatus status) throws JSONException{
+		if(json != null){
+			JSONArray array = json.getJSONArray("contacts");
+			//Log.e("WebService", array.toString());
+			for(int i=0; i < array.length(); i++){
+				String name = array.getJSONObject(i)
+						//.getJSONObject("contacts")
+						.getString("name");
+				tipoServico.add(name);
+	//			        //modelTpFila.put(c.getString("name"), c.getInt(""));
+		        modelTpFila.put(name, i);
+			}
+		}
 	}
 
 	@Override
