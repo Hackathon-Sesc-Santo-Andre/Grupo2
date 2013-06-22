@@ -21,7 +21,7 @@ public class Login extends Controller {
 			if (bindFromRequest.get() != null) {
 				Usuario byId = Usuario.find.byId(bindFromRequest.get().id);
 				if (byId.senha.equalsIgnoreCase(bindFromRequest.get().senha)) {
-					//TODO criar pagina apos o login. admin page
+					//TODO criar pagina apos o login. admin page teste
 					return ok();
 				}else {
 					return unauthorized("Usuário e/ou senha inválido");
