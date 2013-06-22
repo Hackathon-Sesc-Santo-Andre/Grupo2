@@ -1,15 +1,33 @@
-logs
-project/project
-project/target
-target
-tmp
-.history
-dist
-/.idea
-/*.iml
-/out
-/.idea_modules
-/.classpath
-/.project
-/RUNNING_PID
-/.settings
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# mvn
+target/
+.target/
+
+# Eclipse project files
+.classpath
+.project
+.settings
+
+## Android
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+#Gedit temp files
+*.*~
