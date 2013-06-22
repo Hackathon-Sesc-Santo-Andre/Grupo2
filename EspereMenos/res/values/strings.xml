@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Espere Menos</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_senha">Senha</string>
+    <string name="entrada_pedido">Favor entrar com o pedido:</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_adm">AdmActivity</string>
+
+</resources>
