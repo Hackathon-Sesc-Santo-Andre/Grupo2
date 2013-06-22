@@ -17,4 +17,8 @@ public class Fila extends Controller{
 	public static Result index() {
 		return ok();
 	}
+	
+	public static Result ticket() {
+		return ok();
+	}
 }
