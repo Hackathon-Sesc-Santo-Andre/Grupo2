@@ -23,16 +23,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 public class SenhaActivity extends Activity {
 
 	AQuery a;
-	private Spinner spn1;
+	Spinner spn1;
+	EditText txtSenha;
+	Button bntAdm, bntEnviar;
 	private List<String> tipoServico = new ArrayList<String>();
 	private Map<String, Integer> modelTpFila = new HashMap<String, Integer>();
-
 	
 		
 	@Override
@@ -43,64 +45,39 @@ public class SenhaActivity extends Activity {
 		
 		a = new AQuery(this);
 		
-		tipoServico.add("");
-		//tipoServico.add("Atendimento");
-		//tipoServico.add("Restaurante");
 		
-//		WebService webService = new WebService();
-//		JSONObject json = webService.getJSONFromUrl("http://api.androidhive.info/contacts/");
-//		if(json == null){
-//			Toast.makeText(SenhaActivity.this, 
-//					   "erro no json", 
-//					   Toast.LENGTH_LONG).show();
-//		}else{
-//			JSONArray tipo = null;
-//			
-//			try {
-//			    // Getting Array of Contacts
-//				tipo = json.getJSONArray("contacts");
-//			     
-//			    // looping through All Contacts
-//			    for(int i = 0; i < tipo.length(); i++){
-//			        JSONObject c = tipo.getJSONObject(i);
-//			         
-//			        // Storing each json item in variable
-//			        tipoServico.add(c.getString("name"));
-//			        //modelTpFila.put(c.getString("name"), c.getInt(""));
-//			        modelTpFila.put(c.getString("name"), i);
-//			         
-//			    }
-//			} catch (JSONException e) {
-//			    e.printStackTrace();
-//			}
-			getJsonTipoServico();
-	        
-			spn1 = (Spinner) findViewById(R.id.spnTipoServico);
-			ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tipoServico);
-			ArrayAdapter<String> spinnerArrayAdapter = arrayAdapter;
-			spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-			spn1.setAdapter(spinnerArrayAdapter);
-			//Método do Spinner para capturar o item selecionado
-			spn1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-	 
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View v, int posicao, long id) {
-					//pega nome pela posição
-					String servico = parent.getItemAtPosition(posicao).toString();
-					//imprime um Toast na tela com o nome que foi selecionado
-					Toast.makeText(SenhaActivity.this, 
-								   "Serviço Selecionado: " + servico +", Id Serviço: "+ modelTpFila.get(servico), 
-								   Toast.LENGTH_LONG).show();
-				}
-	 
-				@Override
-				public void onNothingSelected(AdapterView<?> parent) {
-	 
-				}
-			});
-		//}
+		getJsonTipoServico();
+        
+		spn1 = (Spinner) findViewById(R.id.spnTipoServico);
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tipoServico);
+		ArrayAdapter<String> spinnerArrayAdapter = arrayAdapter;
+		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+		spn1.setAdapter(spinnerArrayAdapter);
+		spn1.setSelection(-1);
+		
+		//Método do Spinner para capturar o item selecionado
+		/*spn1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+ 
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View v, int posicao, long id) {
+				//pega nome pela posição
+				String servico = parent.getItemAtPosition(posicao).toString();
+				//imprime um Toast na tela com o nome que foi selecionado
+				Toast.makeText(SenhaActivity.this, 
+							   "Serviço Selecionado: " + servico +", Id Serviço: "+ modelTpFila.get(servico), 
+							   Toast.LENGTH_LONG).show();
+			}
+ 
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+ 
+			}
+		});*/
+			
+	    txtSenha = (EditText) findViewById(R.id.txtSenha);
+	   
 				
-		Button bntAdm = (Button)findViewById(R.id.bntAdm);
+		bntAdm = (Button)findViewById(R.id.bntAdm);
 		bntAdm.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -111,6 +88,18 @@ public class SenhaActivity extends Activity {
 			}
 		});
 		
+		bntEnviar = (Button)findViewById(R.id.bntEnviar);
+		bntEnviar.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if( txtSenha.getText().toString().length() <= 0) {
+				    txtSenha.setError("Campo Obrigatorio");
+					txtSenha.requestFocus();
+				}
+				
+			}
+		});
 		
 		
 	}

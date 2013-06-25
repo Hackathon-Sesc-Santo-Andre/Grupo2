@@ -7,11 +7,12 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
         <activity
@@ -19,6 +20,7 @@
             android:label="@string/title_activity_splash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -33,6 +35,10 @@
         <activity
             android:name="br.org.esperemenos.AdmActivity"
             android:label="@string/title_activity_adm" >
+        </activity>
+        <activity
+            android:name="br.org.esperemenos.AdmSenhaActivity"
+            android:label="@string/title_activity_adm_senha" >
         </activity>
     </application>
 

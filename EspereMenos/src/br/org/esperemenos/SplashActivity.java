@@ -19,7 +19,7 @@ public class SplashActivity extends RoboActivity {
 		setContentView(R.layout.activity_splash);
 		
 		a = new AQuery(this);
-		a.id(R.id.logo).animate(R.anim.caindo);
+		//a.id(R.id.logo).animate(R.anim.caindo);
 		
 		new Timer().schedule(new TimerTask() {
             @Override
